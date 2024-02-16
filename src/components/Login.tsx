@@ -1,6 +1,7 @@
 import React, { SyntheticEvent } from 'react'
 import { AuthService } from '../services/AuthService'
 import { User } from '../modal/Modal'
+import { Navigate } from 'react-router-dom'
 
 interface LoginProps {
     authService: AuthService,
@@ -45,6 +46,7 @@ export class Login extends React.Component<LoginProps, LoginState>{
         if (result) {
             this.setState({ loginSuccessful: true })
             this.props.setUser(result)
+            return <Navigate to="/profile" />
         }
         else {
             this.setState({ loginSuccessful: false })
