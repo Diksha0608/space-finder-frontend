@@ -1,12 +1,13 @@
 import React, { SyntheticEvent } from 'react'
 import { AuthService } from '../services/AuthService'
 import { User } from '../modal/Modal'
-import { Navigate } from 'react-router-dom'
+import history from '../utils/history'
 
 interface LoginProps {
     authService: AuthService,
-    setUser:(user:User) => void
+    setUser: (user: User) => void
 }
+
 interface LoginState {
     userName: string,
     password: string,
@@ -17,6 +18,8 @@ interface LoginState {
 interface CustomEvent {
     target: HTMLInputElement
 }
+
+
 
 export class Login extends React.Component<LoginProps, LoginState>{
 
@@ -46,7 +49,8 @@ export class Login extends React.Component<LoginProps, LoginState>{
         if (result) {
             this.setState({ loginSuccessful: true })
             this.props.setUser(result)
-            return <Navigate to="/profile" />
+            history.push('/profile')
+            
         }
         else {
             this.setState({ loginSuccessful: false })
@@ -61,7 +65,7 @@ export class Login extends React.Component<LoginProps, LoginState>{
         if (this.state.loginAttempted) {
             if (this.state.loginSuccessful) {
                 loginMessage = <label>Login Successful</label>
-            }else{
+            } else {
                 loginMessage = <label>Login Failed</label>
             }
         }
